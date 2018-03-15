@@ -1,4 +1,9 @@
-//  API Key Giphy: wX0IGeaFDD9DLkPgN9cnUHm1SRHfkqw2
+// 
+
+
+
+// Still need to change the image src to the moving version when clicked. Need to set status to either static or moving when clicked.
+// Each time clicked, status will change and the img source will also change.
 
 
 
@@ -10,6 +15,8 @@ var foods = ["tomato", "lettuce", "avocado", "apple", "orange", "strawberry", "f
         var food = $(this).attr("data-name");
         var queryURL = "https://api.giphy.com/v1/gifs/search?q="+ food +"&api_key=wX0IGeaFDD9DLkPgN9cnUHm1SRHfkqw2&limit=10";
 
+        
+
         // Creates AJAX call for the specific food button being clicked
         $.ajax({
           url: queryURL,
@@ -19,35 +26,29 @@ var foods = ["tomato", "lettuce", "avocado", "apple", "orange", "strawberry", "f
           $("#foods-view").empty();
           for (var i = 0; i < results.length; i++) {
           
-          console.log(response);
-          console.log(response.data);
-          console.log(response.data[i].rating);
-          console.log(queryURL);
-          console.log(response.data[i].images.fixed_width.url);
+         
+            console.log(response.data);
+            console.log(movingImage);
+            console.log(queryURL);
+            var stillImage = response.data[i].images.fixed_height_small_still.url;
+            var movingImage = response.data[i].images.fixed_height_small.url;
+
+            var image = $("<img>");
+                        
+            // Creates an element to have the rating displayed
+            $("#foods-view").append("<div>"+ response.data[i].rating + "</div>").addClass("col ratings");
+            
+            
+            $("#foods-view").append("<div><img src="+ response.data[i].images.fixed_height_small_still
+            .url + "></div>")
+            $('<div>').find('img').addClass('image-class')
+
+           
+          console.log(this);
           
-          // Creates a div to hold the food
+        }
 
 
-          // commented out to check something
-          // $("#foods-view").append("<div>"+ food + "</div>");
-          // Retrieves the Rating Data
-          
-          // Creates an element to have the rating displayed
-          $("#foods-view").append("<div>"+ response.data[i].rating + "</div>").addClass("col ratings");
-          $(".ratings").css("clear", "both");
-          // Displays the rating
-          // Retrieves the release year
-        //   $("#foods-view").append("<div>"+ response.Year + "</div>"); <--this was from copied code.
-          // Creates an element to hold the release year
-          // Displays the release year
-          // Retrieves the plot
-          // Creates an element to hold the plot
-          // Appends the plot
-          // Creates an element to hold the image
-          // Appends the image
-          $("#foods-view").append("<div><img src="+ response.data[i].images.fixed_width.url + "></div>");
-          // Puts the entire food above the previous foods.
-          }
         });
     
       }
