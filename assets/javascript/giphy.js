@@ -2,7 +2,7 @@
 
 
 
-var foods = ["tomato", "lettuce", "avocado", "apple", "orange", "strawberry", "fruits", "beans", "sushi", "cookies", "ice cream", "vegetable", "ryan gosling"];
+var foods = ["tomato", "lettuce", "avocado", "apple", "orange", "strawberry", "fruits", "beans", "sushi", "cookies", "ice cream", "vegetable"];
 
       // displayfoodInfo function re-renders the HTML to display the appropriate content
       function displayfoodInfo() {
@@ -15,20 +15,26 @@ var foods = ["tomato", "lettuce", "avocado", "apple", "orange", "strawberry", "f
           url: queryURL,
           method: "GET"
         }).then(function(response) {
-            
+          var results = response.data;
           $("#foods-view").empty();
+          for (var i = 0; i < results.length; i++) {
+          
           console.log(response);
           console.log(response.data);
-          console.log(response.data[0].rating);
+          console.log(response.data[i].rating);
           console.log(queryURL);
-          console.log(response.data[0].images.fixed_width.url);
+          console.log(response.data[i].images.fixed_width.url);
           
           // Creates a div to hold the food
-          $("#foods-view").append("<div>"+ food + "</div>");
+
+
+          // commented out to check something
+          // $("#foods-view").append("<div>"+ food + "</div>");
           // Retrieves the Rating Data
           
           // Creates an element to have the rating displayed
-          $("#foods-view").append("<div>"+ response.data[0].rating + "</div>");
+          $("#foods-view").append("<div>"+ response.data[i].rating + "</div>").addClass("col ratings");
+          $(".ratings").css("clear", "both");
           // Displays the rating
           // Retrieves the release year
         //   $("#foods-view").append("<div>"+ response.Year + "</div>"); <--this was from copied code.
@@ -39,8 +45,9 @@ var foods = ["tomato", "lettuce", "avocado", "apple", "orange", "strawberry", "f
           // Appends the plot
           // Creates an element to hold the image
           // Appends the image
-          $("#foods-view").append("<div><img src="+ response.data[0].images.fixed_width.url + "></div>");
+          $("#foods-view").append("<div><img src="+ response.data[i].images.fixed_width.url + "></div>");
           // Puts the entire food above the previous foods.
+          }
         });
     
       }
